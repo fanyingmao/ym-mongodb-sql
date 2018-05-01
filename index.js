@@ -16,8 +16,8 @@ class MongodbSql {
             }).join(',') + ')');
             break;
           case '$regex':
-            values.push();
-            queryItem.push(key + ' regexp ' + itme[key2]);
+            values.push(itme[key2]);
+            queryItem.push(key + ' regexp ' + '?');
             break;
         }
       });
@@ -29,6 +29,14 @@ class MongodbSql {
     return {queryItem: queryItem.join(' and '), values: values};
   };
 
+  /**
+   * 生成sql查询语句
+   * @param tableName 表名
+   * @param query 相等查询
+   * @param fields 字段筛选
+   * @param optSql 其它sql语句
+   * @returns {*} promise结果返回
+   */
   static find(tableName, query, fields, optSql) {
     let fieldsKeys;
     if (!fields) {
@@ -65,7 +73,9 @@ class MongodbSql {
                 $orQuery.push(queryItem);
               });
             });
-            queryArr.push('(' + $orQuery.join(' or ') + ')');
+            if($orQuery.length > 0){
+              queryArr.push('(' + $orQuery.join(' or ') + ')');
+            }
             break;
           case '$nor':
             let $norQuery = [];
@@ -76,7 +86,9 @@ class MongodbSql {
                 $norQuery.push(queryItem);
               });
             });
-            queryArr.push('!(' + $norQuery.join(' or ') + ')');
+            if($norQuery.length > 0){
+              queryArr.push('!(' + $norQuery.join(' or ') + ')');
+            }
             break;
           default:
             let {queryItem, values} = MongodbSql.dealItem(key, query[key]);
@@ -94,12 +106,7 @@ class MongodbSql {
       optSql = ' ' + optSql;
     }
     let sql = 'select ' + fieldSql + ' from ' + tableName + ' ' + querySql + optSql + ';';
-    // 显示带参数sql语句
-    // for (let i = 0; i < valueArr.length; i++) {
-    //   sql = sql.replace("?", valueArr[i]);
-    // }
-    // console.log('sql : ' + sql);
-    return {sql,valueArr};
+    return {sql, valueArr};
   };
 }
 
