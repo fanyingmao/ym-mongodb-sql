@@ -7,7 +7,7 @@ npm i fanyingmao/ym-mongodb-sql
 ```
 ## 使用
 ### find方法
-```
+```javaScript
 let ym = require("ym-mogodb-sql");
 
 let {sql, valueArr} = ym.find("tlf_user", {
