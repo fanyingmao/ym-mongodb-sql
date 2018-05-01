@@ -29,7 +29,7 @@ class MongodbSql {
     return {queryItem: queryItem.join(' and '), values: values};
   };
 
-  find(tableName, query, fields, optSql) {
+  static find(tableName, query, fields, optSql) {
     let fieldsKeys;
     if (!fields) {
       fieldsKeys = [];
@@ -103,4 +103,4 @@ class MongodbSql {
   };
 }
 
-export default MongodbSql;
+module.exports = MongodbSql;
