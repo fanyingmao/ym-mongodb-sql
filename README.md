@@ -19,8 +19,8 @@ let {sql, valueArr} = ym.find("tlf_user", {
 console.log("sql : " + sql);
 console.log("valueArr : " + valueArr);
 
-//sql : select name from tlf_user  where (email regexp * or eail regexp *) and !(mobile regexp * or emil regexp *) and id in (?,?,?);
-//valueArr : 1,2,3
+// sql : select name from tlf_user  where (email regexp ? or eail regexp ?) and !(mobile regexp ? or emil regexp ?) and id in (?,?,?);
+// valueArr : *,*,*,*,1,2,3
 
 ```
 其它方法和查询条件当前项目未用到所以还有待开发
