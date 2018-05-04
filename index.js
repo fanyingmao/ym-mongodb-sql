@@ -12,6 +12,7 @@ class MongodbSql {
           '$in'
         :
           let arr = itme[key2];
+          if(arr.length > 0){
           values.push(...arr
         )
           ;
@@ -19,7 +20,7 @@ class MongodbSql {
             return '?'
           }).join(',') + ')'
         )
-          ;
+          ;}
           break;
         case
           '$regex'
