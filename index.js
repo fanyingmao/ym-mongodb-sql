@@ -166,6 +166,24 @@ class MongodbSql {
     return {sql, valueArr};
   };
 
+  static insert(tableName, setObj, optSql) {
+    if (!optSql) {
+      optSql = '';
+    }
+    else {
+      optSql = ' ' + optSql;
+    }
+
+    let setKeys = Object.keys(setObj);
+
+    let setSql = setKeys.join(',');
+    let valueArr = setKeys.map(key => setObj[key]);
+    let valueSql = setKeys.map(key => '?').join(',');
+    let sql = 'insert into ' + tableName + ' (' + setSql + ') ' + 'values (' + valueSql + ')' +
+      optSql + ';';
+    return {sql, valueArr};
+  };
+
 }
 
 module.exports = MongodbSql;
