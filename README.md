@@ -1,7 +1,10 @@
 # ym-mongodb-sql
 将mongodb的json参数转换为sql语句，通过较少的更改实现[mogodb](https://www.npmjs.com/package/mongodb)模块到mysql数据库的替换
 ## 安装
-由于项目不完全就没提交至npm，可通过npm的github安装方式安装模块
+```
+npm i ym-mongodb-sql
+```
+或者可通过npm的github安装方式安装模块
 ```
 npm i fanyingmao/ym-mongodb-sql
 ```
