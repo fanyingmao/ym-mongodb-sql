@@ -10,7 +10,7 @@ class MongodbSql {
           switch (key2) {
             case '$in':
               let arr = itme[key2];
-              if(arr.length > 0){
+              if (arr.length > 0) {
                 values.push(...arr
                 );
                 queryItem.push(key + ' in (' + arr.map(m => {
@@ -52,8 +52,7 @@ class MongodbSql {
                 Object.keys(item).forEach(key2 => {
                   let {queryItem, values} = MongodbSql.dealItem(key2, item[key2]);
                   valueArr.push(...values
-                  )
-                  ;
+                  );
                   $orQuery.push(queryItem);
                 });
               });
@@ -67,13 +66,10 @@ class MongodbSql {
                 Object.keys(item).forEach(key2 => {
                   let {queryItem, values} = MongodbSql.dealItem(key2, item[key2]);
                   valueArr.push(...values
-                  )
-                  ;
+                  );
                   $norQuery.push(queryItem);
-                })
-                ;
-              })
-              ;
+                });
+              });
               if ($norQuery.length > 0) {
                 queryArr.push('!(' + $norQuery.join(' or ') + ')');
               }
@@ -87,9 +83,9 @@ class MongodbSql {
               break;
           }
         }
-      )
-      ;
-      if (queryArr.length === 0) {
+      );
+
+      if (queryArr.every(itme => !itme || itme === '')) {
         querySql = '';
       }
       querySql += queryArr.join(' and ');
