@@ -1,5 +1,5 @@
 {
-  "name": "ym-mogodb-sql",
+  "name": "ym-mongodb-sql",
   "version": "1.0.0",
   "description": "mongodb change sql",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fanyingmao/ym-mogodb-sql.git"
+    "url": "git+https://github.com/fanyingmao/ym-mongodb-sql.git"
   },
   "keywords": [
     "mongodb",
@@ -17,7 +17,7 @@
   "author": "fanyingmao",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fanyingmao/ym-mogodb-sql/issues"
+    "url": "https://github.com/fanyingmao/ym-mongodb-sql/issues"
   },
-  "homepage": "https://github.com/fanyingmao/ym-mogodb-sql#readme"
+  "homepage": "https://github.com/fanyingmao/ym-mongodb-sql#readme"
 }
