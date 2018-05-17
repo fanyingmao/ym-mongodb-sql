@@ -8,18 +8,17 @@ class MongodbSql {
       let valueKeys = Object.keys(itme);
       valueKeys.forEach(key2 => {
           switch (key2) {
-            case
-            '$in':
+            case '$in':
               let arr = itme[key2];
-              values.push(...arr
-              );
-              queryItem.push(key + ' in (' + arr.map(m => {
-                return '?'
-              }).join(',') + ')'
-              );
+              if(arr.length > 0){
+                values.push(...arr
+                );
+                queryItem.push(key + ' in (' + arr.map(m => {
+                  return '?'
+                }).join(',') + ')');
+              }
               break;
-            case
-            '$regex':
+            case '$regex':
               values.push(itme[key2]);
               queryItem.push(key + ' regexp ' + '?');
               break;
@@ -47,9 +46,7 @@ class MongodbSql {
       let queryArr = [];
       queryKeys.forEach(key => {
           switch (key) {
-            case
-            '$or'
-            :
+            case '$or':
               let $orQuery = [];
               query[key].forEach(item => {
                 Object.keys(item).forEach(key2 => {
@@ -58,17 +55,13 @@ class MongodbSql {
                   )
                   ;
                   $orQuery.push(queryItem);
-                })
-                ;
-              })
-              ;
+                });
+              });
               if ($orQuery.length > 0) {
                 queryArr.push('(' + $orQuery.join(' or ') + ')');
               }
               break;
-            case
-            '$nor'
-            :
+            case '$nor':
               let $norQuery = [];
               query[key].forEach(item => {
                 Object.keys(item).forEach(key2 => {
@@ -96,6 +89,9 @@ class MongodbSql {
         }
       )
       ;
+      if (queryArr.length === 0) {
+        querySql = '';
+      }
       querySql += queryArr.join(' and ');
     }
     return {querySql, valueArr}
