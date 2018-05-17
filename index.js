@@ -10,13 +10,15 @@ class MongodbSql {
           switch (key2) {
             case '$in':
               let arr = itme[key2];
-              if (arr.length > 0) {
-                values.push(...arr
-                );
-                queryItem.push(key + ' in (' + arr.map(m => {
-                  return '?'
-                }).join(',') + ')');
+              if (arr.length === 0) {
+                arr.push(Date.now());
               }
+              values.push(...arr
+              );
+              queryItem.push(key + ' in (' + arr.map(m => {
+                return '?'
+              }).join(',') + ')');
+
               break;
             case '$regex':
               values.push(itme[key2]);
