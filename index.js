@@ -9,7 +9,7 @@ class MongodbSql {
       valueKeys.forEach(key2 => {
           switch (key2) {
             case '$in':
-              let arr = itme[key2];
+              let arr = itme[ key2 ];
               if (arr.length === 0) {
                 arr.push(Date.now());
               }
@@ -21,7 +21,7 @@ class MongodbSql {
 
               break;
             case '$regex':
-              values.push(itme[key2]);
+              values.push(itme[ key2 ]);
               queryItem.push(key + ' regexp ' + '?');
               break;
           }
@@ -33,7 +33,7 @@ class MongodbSql {
       values.push(itme);
       queryItem.push(key + ' = ?');
     }
-    return {queryItem: queryItem.join(' and '), values: values};
+    return { queryItem: queryItem.join(' and '), values: values };
   };
 
   static dealQuery(query) {
@@ -50,9 +50,9 @@ class MongodbSql {
           switch (key) {
             case '$or':
               let $orQuery = [];
-              query[key].forEach(item => {
+              query[ key ].forEach(item => {
                 Object.keys(item).forEach(key2 => {
-                  let {queryItem, values} = MongodbSql.dealItem(key2, item[key2]);
+                  let { queryItem, values } = MongodbSql.dealItem(key2, item[ key2 ]);
                   valueArr.push(...values
                   );
                   $orQuery.push(queryItem);
@@ -64,9 +64,9 @@ class MongodbSql {
               break;
             case '$nor':
               let $norQuery = [];
-              query[key].forEach(item => {
+              query[ key ].forEach(item => {
                 Object.keys(item).forEach(key2 => {
-                  let {queryItem, values} = MongodbSql.dealItem(key2, item[key2]);
+                  let { queryItem, values } = MongodbSql.dealItem(key2, item[ key2 ]);
                   valueArr.push(...values
                   );
                   $norQuery.push(queryItem);
@@ -77,7 +77,7 @@ class MongodbSql {
               }
               break;
             default:
-              let {queryItem, values} = MongodbSql.dealItem(key, query[key]);
+              let { queryItem, values } = MongodbSql.dealItem(key, query[ key ]);
               valueArr.push(...values
               )
               ;
@@ -92,7 +92,7 @@ class MongodbSql {
       }
       querySql += queryArr.join(' and ');
     }
-    return {querySql, valueArr}
+    return { querySql, valueArr }
   }
 
   /**
@@ -119,7 +119,7 @@ class MongodbSql {
       fieldSql = fieldsKeys.join(',');
     }
 
-    let {querySql, valueArr} = MongodbSql.dealQuery(query);
+    let { querySql, valueArr } = MongodbSql.dealQuery(query);
     if (!optSql) {
       optSql = '';
     }
@@ -127,11 +127,11 @@ class MongodbSql {
       optSql = ' ' + optSql;
     }
     let sql = 'select ' + fieldSql + ' from ' + tableName + ' ' + querySql + optSql + ';';
-    return {sql, valueArr};
+    return { sql, valueArr };
   };
 
   static delete(tableName, query, optSql) {
-    let {querySql, valueArr} = MongodbSql.dealQuery(query);
+    let { querySql, valueArr } = MongodbSql.dealQuery(query);
     if (!optSql) {
       optSql = '';
     }
@@ -139,11 +139,11 @@ class MongodbSql {
       optSql = ' ' + optSql;
     }
     let sql = 'delete ' + ' from ' + tableName + ' ' + querySql + optSql + ';';
-    return {sql, valueArr};
+    return { sql, valueArr };
   };
 
   static update(tableName, query, setObj, optSql) {
-    let {querySql, valueArr} = MongodbSql.dealQuery(query);
+    let { querySql, valueArr } = MongodbSql.dealQuery(query);
     if (!optSql) {
       optSql = '';
     }
@@ -155,9 +155,9 @@ class MongodbSql {
 
     let setSql = setKeys.map(item => item + ' = ?').join(',');
 
-    valueArr = [...setKeys.map(item => setObj[item]), valueArr];
+    valueArr = [ ...setKeys.map(item => setObj[ item ]), valueArr ];
     let sql = 'update ' + tableName + ' set ' + setSql + ' ' + querySql + optSql + ';';
-    return {sql, valueArr};
+    return { sql, valueArr };
   };
 
   static insert(tableName, setObj, optSql) {
@@ -171,13 +171,14 @@ class MongodbSql {
     let setKeys = Object.keys(setObj);
 
     let setSql = setKeys.join(',');
-    let valueArr = setKeys.map(key => setObj[key]);
+    let valueArr = setKeys.map(key => setObj[ key ]);
     let valueSql = setKeys.map(key => '?').join(',');
     let sql = 'insert into ' + tableName + ' (' + setSql + ') ' + 'values (' + valueSql + ')' +
       optSql + ';';
-    return {sql, valueArr};
+    return { sql, valueArr };
   };
 
 }
 
 module.exports = MongodbSql;
+module.exports.default = MongodbSql;//兼容ts写法
