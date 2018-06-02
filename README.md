@@ -71,6 +71,14 @@ console.log('valueArr : ' + valueArr);
 其它方法和查询条件当前项目未用到所以还有待开发
 
 ### TS支持例子
+```typeScript
+
+import MongodbSql from './index'
+
+let a = MongodbSql.find("tlf_user", { id: { $in: [] } }, { name: 1 });
+console.log(a.sql + "   " + a.valueArr);
+```
+
 
 ## 扩展
 实际上已经有类似更加完善的项目[mongo-sql](https://www.npmjs.com/package/mongo-sql)，但其转出的sql语句好像无法直接使用，且传参并没有和[mogodb](https://www.npmjs.com/package/mongodb)一致所以不太适用我的场景。
