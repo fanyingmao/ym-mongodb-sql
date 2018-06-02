@@ -70,9 +70,8 @@ console.log('valueArr : ' + valueArr);
 ```
 其它方法和查询条件当前项目未用到所以还有待开发
 
-### TS支持例子
+### Typescript例子，这里只有find例子，其它方法类似。
 ```typeScript
-
 import MongodbSql from './index'
 
 let a = MongodbSql.find("tlf_user", { id: { $in: [] } }, { name: 1 });
