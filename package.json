@@ -1,6 +1,6 @@
 {
   "name": "ym-mongodb-sql",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "mongodb change sql",
   "main": "index.js",
   "scripts": {
